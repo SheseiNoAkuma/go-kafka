@@ -25,7 +25,9 @@ func Connectors(conf Configuration) ([]string, error) {
 
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
-		log.Print("Error in closing request body", err)
+		if err != nil {
+			log.Print("Error in closing request body", err)
+		}
 	}(resp.Body)
 
 	body, err := io.ReadAll(resp.Body)
